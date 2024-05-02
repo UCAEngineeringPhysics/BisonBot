@@ -1,3 +1,3 @@
 # Bison Robot
-Bison the robot -- An electric wheelchair modified robot.
+Bison the robot -- The evolution of an electric wheelchair.
 ![portrait](media/image/portrait.jpg)
