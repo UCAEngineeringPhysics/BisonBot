@@ -7,7 +7,7 @@ Wiring:
     Pico: Micro-USB         -->     Computer: USB
     Encoder: Brown (VCC)    -->     Pico: VBUS
     Encoder: Blue (GND)     -->     Pico: GND
-    Encoder: Black (A)      -->     Pico: GPIO14
+    Encoder: Black (A)      -->     Pico: GPIO13
 Count encoder triggers:
     1. Run this script.
     2. Manually rotate the wheel and observe how many times the encoders are triggered.
@@ -15,7 +15,7 @@ Count encoder triggers:
 from machine import Pin
 
 # SETUP
-enc_pin = Pin(14, Pin.IN, Pin.PULL_DOWN)
+enc_pin = Pin(13, Pin.IN, Pin.PULL_DOWN)
 trig_counts = 0 
 def inc_counts(pin):
     global trig_counts

@@ -8,7 +8,7 @@ Wiring:
     Pico: Micro-USB         -->     Computer: USB
     Encoder: Brown (VCC)    -->     Pico: VBUS
     Encoder: Blue (GND)     -->     Pico: GND
-    Encoder: Black (A)      -->     Pico: GPIO14
+    Encoder: Black (A)      -->     Pico: GPIO13
 Count encoder triggers:
     1. Run this script.
     2. Power up motor with a battery (12V - 24V) and watch the estimated speed.
@@ -17,7 +17,7 @@ Count encoder triggers:
 from machine import Pin, Timer
 
 # SETUP
-enc_pin = Pin(14, Pin.IN, Pin.PULL_DOWN)
+enc_pin = Pin(13, Pin.IN, Pin.PULL_DOWN)
 trig_counts = 0 
 def inc_counts(pin):
     global trig_counts
@@ -26,17 +26,20 @@ enc_pin.irq(trigger=Pin.IRQ_RISING, handler=inc_counts)
 
 speed = 0.
 prev_trig_counts = 0
-def comp_speed(timer):
-    global trig_counts
-    global prev_trig_counts
-    global speed 
-    speed = (trig_counts - prev_trig_counts) * 100.
-    prev_trig_counts = trig_counts
-speed_monitor_timer = Timer()
-speed_monitor_timer.init(mode=Timer.PERIODIC, freq=100, callback=comp_speed)
+# TIMER WILL SCREW UP EVERYTHING!
+# def comp_speed(timer):
+#     global trig_counts
+#     global prev_trig_counts
+#     global speed 
+#     speed = (trig_counts - prev_trig_counts) * 100.
+#     prev_trig_counts = trig_counts
+# speed_monitor_timer = Timer()
+# speed_monitor_timer.init(mode=Timer.PERIODIC, freq=100, callback=comp_speed)
 
 # LOOP
+from time import sleep
 while True:
-    from time import sleep
+    speed = (trig_counts - prev_trig_counts) * 100.
+    prev_trig_counts = trig_counts
     print(speed)
-    sleep(0.1)
+    sleep(0.01)
