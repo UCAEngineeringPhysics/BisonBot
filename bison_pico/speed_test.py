@@ -15,7 +15,7 @@ Count encoder triggers:
     2. (Alternative) Press "MA" or "MB" button on the motor driver board and watch the estimated speed 
 """
 from machine import freq, Pin, Timer
-freq(125000000)
+freq(125000000)  # default 125000000 Hz, or 125 MHz
 print(f"CPU speed: {freq()} Hz")
 
 # SETUP
