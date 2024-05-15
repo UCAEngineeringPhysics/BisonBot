@@ -14,10 +14,12 @@ Count encoder triggers:
     2. Power up motor with a battery (12V - 24V) and watch the estimated speed.
     2. (Alternative) Press "MA" or "MB" button on the motor driver board and watch the estimated speed 
 """
-from machine import Pin, Timer
+from machine import freq, Pin, Timer
+freq(125000000)
+print(f"CPU speed: {freq()} Hz")
 
 # SETUP
-enc_pin = Pin(13, Pin.IN, Pin.PULL_DOWN)
+enc_pin = Pin(18, Pin.IN)
 trig_counts = 0 
 def inc_counts(pin):
     global trig_counts
@@ -39,7 +41,7 @@ prev_trig_counts = 0
 # LOOP
 from time import sleep
 while True:
-    speed = (trig_counts - prev_trig_counts) * 100.
+    speed = (trig_counts - prev_trig_counts) * 100.  # counts per second
     prev_trig_counts = trig_counts
     print(speed)
     sleep(0.01)
